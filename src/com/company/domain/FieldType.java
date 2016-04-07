@@ -1,6 +1,5 @@
 package com.company.domain;
 
-import java.util.Optional;
 
 /**
  * Created by semanticer on 31. 3. 2016.

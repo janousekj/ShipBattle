@@ -20,6 +20,6 @@ public class GameTest {
     public void testConstructor() throws Exception {
         List<Player> players = new ArrayList<>();
         players.add(new Player("Pepa"));
-        Game game = new Game(players);
+        Game game = new Game(players, 10);
     }
 }

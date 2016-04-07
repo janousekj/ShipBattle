@@ -1,9 +1,8 @@
 package com.company.domain;
 
-/**
- * Created by semanticer on 31. 3. 2016.
- */
+
 public enum ShipType {
-    CARRIER, DESTROYER, CRUISER; // TODO minolapka
+    // zatim budeme resit jen jeden typ lode CARRIER ktery zabira jen jedno policko
+    CARRIER //, DESTROYER, CRUISER;
 
 }
