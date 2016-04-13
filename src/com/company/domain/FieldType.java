@@ -10,6 +10,7 @@ public enum  FieldType {
     private boolean fired;
     private ShipType shipType;
 
+
     public boolean isFired() {
         return fired;
     }
@@ -24,5 +25,6 @@ public enum  FieldType {
 
     public void setShipType(ShipType shipType) {
         this.shipType = shipType;
+
     }
 }

@@ -8,6 +8,8 @@ import java.util.List;
  */
 public class Battlefield {
 
+
+
     List<List<FieldType>> field;
 
 
@@ -39,7 +41,7 @@ public class Battlefield {
         field.get(x).get(y).setShipType(shipType);
     }
 
-
-
-
+    public List<List<FieldType>> getField() {
+        return field;
+    }
 }
