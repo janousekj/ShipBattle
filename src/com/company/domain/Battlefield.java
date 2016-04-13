@@ -10,26 +10,33 @@ public class Battlefield {
 
     List<List<FieldType>> field;
 
+
+
     Battlefield (int size) {
         field = new ArrayList<>();
 
-        // TODO bude potreba vygenerovat tolik rows kolik je size
-        List<FieldType> row = new ArrayList<>();
+        for (int i = 0; i < size; i++) {
+            List<FieldType> row = new ArrayList<>();
+            for (int j = 0; j < size; j++) {
+                row.add(FieldType.EMPTY);
+            }
+            field.add(row);
 
-        // TODO do kazdeho row bude potreba dat toli rows kolik je size
-        row.add(FieldType.EMPTY);
+        }
 
-        field.add(row);
+
 
     }
 
     public boolean fire(int x, int y) {
-        // TODO oznaci pole za isFired
+
+        field.get(x).get(y).setFired(true);
         return false;
     }
 
     public void writeShipPart(int x, int y, ShipType shipType) {
-        // TODO zapise na x,y FieldType konkretni shipType
+
+        field.get(x).get(y).setShipType(shipType);
     }
 
 

@@ -29,7 +29,7 @@ public class ConsoleGame {
         game = new Game(Arrays.asList(firstPlayer, secondPlayer), battlefieldSize);
 
 
-        // setup ships on battlefield
+        //setup ships on battlefield
         // TODO takto se da zeptat na souradnice
         // TODO lode budou zabirat jen jedno policko zatim takze co souradnice to jedna lod
         // TODO staci se tedy obou hracu zeptat na tolik souradnic kolik maji umistit lodi kazdy na svuj battlefield
