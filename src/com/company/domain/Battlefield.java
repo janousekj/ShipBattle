@@ -8,7 +8,7 @@ import java.util.List;
  */
 public class Battlefield {
 
-
+//test
 
     List<List<FieldType>> field;
 
