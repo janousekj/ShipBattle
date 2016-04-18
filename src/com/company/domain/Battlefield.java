@@ -32,8 +32,13 @@ public class Battlefield {
 
     public boolean fire(int x, int y) {
 
-        field.get(x).get(y).setFired(true);
-        return false;
+
+        if (!field.get(x).get(y).isFired()){
+            field.get(x).get(y).setFired(true);
+            return true;
+        }else{
+            return false;
+        }
     }
 
     public void writeShipPart(int x, int y, ShipType shipType) {
@@ -43,5 +48,16 @@ public class Battlefield {
 
     public List<List<FieldType>> getField() {
         return field;
+    }
+
+    public boolean putShip(int x, int y){
+        if (getField().get(x).get(y) == FieldType.EMPTY){
+            // TODO nahradit metodou battlefieldu putShip()
+            // TODO setnout policku SHIP
+            getField().get(x).get(y).setShipType(ShipType.CARRIER);
+            getField().get(x).set(y, FieldType.SHIP);
+            return true;
+        }else return false;
+
     }
 }

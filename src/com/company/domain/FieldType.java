@@ -5,7 +5,7 @@ package com.company.domain;
  * Created by semanticer on 31. 3. 2016.
  */
 public enum  FieldType {
-    EMPTY, SHIP;
+    EMPTY, SHIP, HIT, MISS;
 
     private boolean fired;
     private ShipType shipType;
