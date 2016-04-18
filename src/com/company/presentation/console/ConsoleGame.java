@@ -47,7 +47,49 @@ public class ConsoleGame {
         //setup ships on battlefield
         // TODO hratelny prvni tah
 
-    }
+
+        println("Na tahu je" + firstPlayer.getName() + "prosim strilej");
+        int x = askForCoordinates("x");
+        int y = askForCoordinates("y");
+        switch (secondPlayer.getBattlefield().fire(x,y)) {
+            case EMPTY:
+                println("Vedle!");
+                secondPlayer.getBattlefield().setHit(x, y);
+                break;
+            case SHIP:
+                println("Zasah");
+                secondPlayer.getBattlefield().setHit(x, y);
+                break;
+            case HIT:
+                println("Tam uz jsi strilel");
+                break;
+            default:
+                break;
+        }
+            // ------
+
+            println("Na tahu je" + secondPlayer.getName() + "prosim strilej");
+            x = askForCoordinates("x");
+            y = askForCoordinates("y");
+            switch (firstPlayer.getBattlefield().fire(x,y)) {
+                case EMPTY:
+                    println("Vedle!");
+                    firstPlayer.getBattlefield().setHit(x, y);
+                    break;
+                case SHIP:
+                    println("Zasah");
+                    firstPlayer.getBattlefield().setHit(x, y);
+                    break;
+                case HIT:
+                    println("Tam uz jsi strilel");
+                    break;
+                default:
+                    break;
+            }
+
+        }
+
+
 
     private static int askForCoordinates(String par) {
         print("Zadejte souradnici " + par + ": ");

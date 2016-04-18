@@ -30,15 +30,18 @@ public class Battlefield {
 
     }
 
-    public boolean fire(int x, int y) {
+    public FieldType fire(int x, int y) {
 
 
         if (!field.get(x).get(y).isFired()){
             field.get(x).get(y).setFired(true);
-            return true;
+            return field.get(x).get(y);
         }else{
-            return false;
+            return field.get(x).get(y);
         }
+    }
+    public void setHit(int x, int y){
+        field.get(x).set(y, FieldType.HIT);
     }
 
     public void writeShipPart(int x, int y, ShipType shipType) {
