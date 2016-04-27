@@ -21,7 +21,6 @@ public class ConsoleGame {
         printBlock("Hra zacina");
 
 
-
         print("Zadejte velikost pole: ");
         final int battlefieldSize = scanner.nextInt();
         Player firstPlayer = createPlayer(battlefieldSize);
@@ -31,64 +30,52 @@ public class ConsoleGame {
 
 
         for (Player player : game.getPlayers()) {
-            println("Nyn√≠ zadava "+player.getName());
+            println("Nyni≠ zadava " + player.getName());
             int i = 0;
-            while (i <=5) {
-                println("Zadejte souradnice pro "+i+". lod");
+            while (i < 5) {
+                println("Zadejte souradnice pro " + i + ". lod");
                 int x = askForCoordinates("x");
                 int y = askForCoordinates("y");
-                if (player.getBattlefield().putShip(x,y)){
+                if (player.getBattlefield().putShip(x, y)) {
                     println("Lod byla umistena");
                     i++;
-                }else println("Uz tam nejakou lod mas");
+                } else println("Uz tam nejakou lod mas");
 
             }
         }
         //setup ships on battlefield
         // TODO hratelny prvni tah
-
-
-        println("Na tahu je" + firstPlayer.getName() + "prosim strilej");
-        int x = askForCoordinates("x");
-        int y = askForCoordinates("y");
-        switch (secondPlayer.getBattlefield().fire(x,y)) {
-            case EMPTY:
-                println("Vedle!");
-                secondPlayer.getBattlefield().setHit(x, y);
-                break;
-            case SHIP:
-                println("Zasah");
-                secondPlayer.getBattlefield().setHit(x, y);
-                break;
-            case HIT:
-                println("Tam uz jsi strilel");
-                break;
-            default:
-                break;
-        }
-            // ------
-
-            println("Na tahu je" + secondPlayer.getName() + "prosim strilej");
-            x = askForCoordinates("x");
-            y = askForCoordinates("y");
-            switch (firstPlayer.getBattlefield().fire(x,y)) {
-                case EMPTY:
-                    println("Vedle!");
-                    firstPlayer.getBattlefield().setHit(x, y);
-                    break;
-                case SHIP:
-                    println("Zasah");
-                    firstPlayer.getBattlefield().setHit(x, y);
-                    break;
-                case HIT:
-                    println("Tam uz jsi strilel");
-                    break;
-                default:
-                    break;
+        while (firstPlayer.getHits() < game.getTOTAL_AMOUNT_OF_SHIPS() || secondPlayer.getHits() < game.getTOTAL_AMOUNT_OF_SHIPS()) {
+        for (Player player : game.getPlayers()) {
+                println("Na tahu je" + player.getName() + "prosim strilej");
+                int x = askForCoordinates("x");
+                int y = askForCoordinates("y");
+                switch (player.getBattlefield().fire(x, y)) {
+                    case EMPTY:
+                        println("Vedle!");
+                        player.getBattlefield().setHit(x, y);
+                        player.printBattlefield();
+                        break;
+                    case SHIP:
+                        println("Zasah");
+                        player.getBattlefield().setHit(x, y);
+                        player.setHits(player.getHits()+1);
+                        player.printBattlefield();
+                        break;
+                    case HIT:
+                        println("Tam uz jsi strilel");
+                        player.printBattlefield();
+                        break;
+                    default:
+                        break;
+                }
             }
 
-        }
+            // ------
 
+
+        }
+    }
 
 
     private static int askForCoordinates(String par) {

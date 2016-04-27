@@ -11,10 +11,16 @@ public class Battlefield {
 //test
 
     List<List<FieldType>> field;
+    private final int size;
 
 
 
-    Battlefield (int size) {
+    public int getSize() {
+		return size;
+	}
+
+	Battlefield (int size) {
+    	this.size = size;
         field = new ArrayList<>();
 
         for (int i = 0; i < size; i++) {

@@ -6,8 +6,29 @@ package com.company.domain;
 public class Player {
     private final String name;
     private final Battlefield battlefield;
+    private int hits = 0;
+    
+    public void printBattlefield()
+    {
+    	for(int i = 0; i < battlefield.getSize(); i++)
+    	{System.out.println();
+    		for(int j =0 ; j < battlefield.getSize();j++)
+    		{
+    		System.out.print(battlefield.getField().get(i).get(j) + "   ");
+    		}
+    } 
+    	}
+   
 
-    public Player(String name, int size) {
+    public void setHits(int hits) {
+		this.hits = hits;
+	}
+
+	public int getHits() {
+		return hits;
+	}
+
+	public Player(String name, int size) {
         this.name = name;
         this.battlefield = new Battlefield(size);
 

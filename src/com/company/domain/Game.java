@@ -7,9 +7,14 @@ import java.util.List;
  */
 public class Game {
     private final List<Player> players;
+    private final int TOTAL_AMOUNT_OF_SHIPS = 5; //TODO obtain total amount other way
 
 
-    public Game(List<Player> players) {
+    public int getTOTAL_AMOUNT_OF_SHIPS() {
+		return TOTAL_AMOUNT_OF_SHIPS;
+	}
+
+	public Game(List<Player> players) {
         if (players == null || players.size() != 2)
             throw new IllegalArgumentException("players must have exactly 2 items");
 
