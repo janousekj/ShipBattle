@@ -7,7 +7,10 @@ public class Player {
     private final String name;
     private final Battlefield battlefield;
     private int hits = 0;
-    
+    // TODO informaci mohu zjistit v battlefieldu
+
+
+    //TODO spise do konzole
     public void printBattlefield()
     {
     	for(int i = 0; i < battlefield.getSize(); i++)

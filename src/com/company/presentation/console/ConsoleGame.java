@@ -28,24 +28,16 @@ public class ConsoleGame {
 
         game = new Game(Arrays.asList(firstPlayer, secondPlayer));
 
+        setupBattlefield();
+        gamePlay(firstPlayer, secondPlayer);
 
-        for (Player player : game.getPlayers()) {
-            println("Nyni­ zadava " + player.getName());
-            int i = 0;
-            while (i < 5) {
-                println("Zadejte souradnice pro " + i + ". lod");
-                int x = askForCoordinates("x");
-                int y = askForCoordinates("y");
-                if (player.getBattlefield().putShip(x, y)) {
-                    println("Lod byla umistena");
-                    i++;
-                } else println("Uz tam nejakou lod mas");
 
-            }
-        }
+    }
+
+    private static void gamePlay(Player firstPlayer, Player secondPlayer) {
         //setup ships on battlefield
-        // TODO hratelny prvni tah
-        while (firstPlayer.getHits() < game.getTOTAL_AMOUNT_OF_SHIPS() || secondPlayer.getHits() < game.getTOTAL_AMOUNT_OF_SHIPS()) {
+        // TODO
+        while (isShipsOnField(firstPlayer, secondPlayer)) {
         for (Player player : game.getPlayers()) {
                 println("Na tahu je" + player.getName() + "prosim strilej");
                 int x = askForCoordinates("x");
@@ -71,9 +63,27 @@ public class ConsoleGame {
                 }
             }
 
-            // ------
+        }
+    }
 
+    private static boolean isShipsOnField(Player firstPlayer, Player secondPlayer) {
+        return firstPlayer.getHits() < game.getTOTAL_AMOUNT_OF_SHIPS() || secondPlayer.getHits() < game.getTOTAL_AMOUNT_OF_SHIPS();
+    }
 
+    private static void setupBattlefield() {
+        for (Player player : game.getPlayers()) {
+            println("Nyniï¿½ zadava " + player.getName());
+            int i = 0;
+            while (i < Game.TOTAL_AMOUNT_OF_SHIPS) {
+                println("Zadejte souradnice pro " + i + ". lod");
+                int x = askForCoordinates("x");
+                int y = askForCoordinates("y");
+                if (player.getBattlefield().putShip(x, y)) {
+                    println("Lod byla umistena");
+                    i++;
+                } else println("Uz tam nejakou lod mas");
+
+            }
         }
     }
 

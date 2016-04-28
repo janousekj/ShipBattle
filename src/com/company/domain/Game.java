@@ -7,7 +7,7 @@ import java.util.List;
  */
 public class Game {
     private final List<Player> players;
-    private final int TOTAL_AMOUNT_OF_SHIPS = 5; //TODO obtain total amount other way
+    public static final int TOTAL_AMOUNT_OF_SHIPS = 5; //TODO obtain total amount other way
 
 
     public int getTOTAL_AMOUNT_OF_SHIPS() {
