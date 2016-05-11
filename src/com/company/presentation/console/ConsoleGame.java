@@ -46,17 +46,17 @@ public class ConsoleGame {
                     case EMPTY:
                         println("Vedle!");
                         player.getBattlefield().setHit(x, y);
-                        player.printBattlefield();
+                        print(printBattlefield(player));
                         break;
                     case SHIP:
                         println("Zasah");
                         player.getBattlefield().setHit(x, y);
                         player.setHits(player.getHits()+1);
-                        player.printBattlefield();
+                        print(printBattlefield(player));
                         break;
                     case HIT:
                         println("Tam uz jsi strilel");
-                        player.printBattlefield();
+                        print(printBattlefield(player));
                         break;
                     default:
                         break;
@@ -73,14 +73,14 @@ public class ConsoleGame {
     private static void setupBattlefield() {
         for (Player player : game.getPlayers()) {
             println("Nyni� zadava " + player.getName());
-            int i = 0;
-            while (i < Game.TOTAL_AMOUNT_OF_SHIPS) {
-                println("Zadejte souradnice pro " + i + ". lod");
+            int shipsPlaced = 0;
+            while (shipsPlaced < Game.TOTAL_AMOUNT_OF_CARRIERS) {
+                println("Zadejte souradnice pro " + shipsPlaced + ". lod CARRIER");
                 int x = askForCoordinates("x");
                 int y = askForCoordinates("y");
                 if (player.getBattlefield().putShip(x, y)) {
                     println("Lod byla umistena");
-                    i++;
+                    shipsPlaced++;
                 } else println("Uz tam nejakou lod mas");
 
             }
@@ -98,6 +98,16 @@ public class ConsoleGame {
         print("Zadejte jmeno hrace: ");
         String playerName = scanner.nextLine();
         return new Player(playerName, size);
+    }
+    public static String printBattlefield(Player player) {
+        String toPrint = "";
+        for(int i = 0; i < player.getBattlefield().getSize(); i++) {
+            toPrint += "\n";
+            for(int j =0 ; j < player.getBattlefield().getSize();j++) {
+                toPrint += player.getBattlefield().getField().get(i).get(j) + "   ";
+            }
+        }
+        return toPrint;
     }
 
 
