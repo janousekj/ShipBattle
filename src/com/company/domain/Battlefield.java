@@ -55,102 +55,97 @@ public class Battlefield {
         return field;
     }
 
+    // TODO Zeptam se zda na x,y lze umistitit lod. funkce počekuje jestli tam je jina loď nebo jestli je to mimo
+    // TODO Tu funkci volat v cyklu, pak prijde lod která řekne počet čtverečků a směr
+
+    public boolean shipCheck(int x, int y, ShipType shipType, int direction){
+        if(direction == 1){
+            int i = 0;
+            while(shipSizeComparation(shipType, i) && x+i < this.size && y+i < this.size){
+                if (getField().get(x+i).get(y) != FieldType.EMPTY)
+                    return false;
+                else i++;
+            }
+            return true;
+        }else if (direction == 2){
+            int i = 0;
+            while(shipSizeComparation(shipType, i)){
+                if (getField().get(x).get(y+i) != FieldType.EMPTY)
+                    return false;
+                else i++;
+            }
+            return true;
+        }
+        return false;
+    }
+
+    private boolean shipSizeComparation(ShipType shipType, int i) {
+        return shipType.size > i;
+    }
+
+
     public boolean putShip(int x, int y, ShipType shipType, int direction) {
         switch (shipType) {
             case CARRIER:
-                if (getField().get(x).get(y) == FieldType.EMPTY) {
+                if (shipCheck(x, y, shipType, direction)) {
                     getField().get(x).get(y).setShipType(ShipType.CARRIER);
                     getField().get(x).set(y, FieldType.SHIP);
-                    return true;
-                } else return false;
-            case CRUISER:
-                if (direction == 1 && x >= 2) {
-                    if (getField().get(x).get(y) == FieldType.EMPTY
-                            && getField().get(x - 1).get(y) == FieldType.EMPTY
-                            && getField().get(x - 2).get(y) == FieldType.EMPTY) {
-                        for (int i = 0; i < 3; i++) {
-                            getField().get(x - i).get(y).setShipType(ShipType.CRUISER);
-                            getField().get(x - i).set(y, FieldType.SHIP);
-                        }
-                        return true;
-                    }
-                } else if (direction == 2 && y < size - 2) {
-                    if (getField().get(x).get(y) == FieldType.EMPTY
-                            && getField().get(x).get(y + 1) == FieldType.EMPTY
-                            && getField().get(x).get(y + 2) == FieldType.EMPTY) {
-                        for (int i = 0; i < 3; i++) {
-                            getField().get(x).get(y + i).setShipType(ShipType.CRUISER);
-                            getField().get(x).set(y + i, FieldType.SHIP);
-                        }
-                        return true;
-                    }
-                } else if (direction == 3 && x < size - 2) {
-                    if (getField().get(x).get(y) == FieldType.EMPTY
-                            && getField().get(x + 1).get(y) == FieldType.EMPTY
-                            && getField().get(x + 2).get(y) == FieldType.EMPTY) {
-                        for (int i = 0; i < 3; i++) {
-                            getField().get(x + i).get(y).setShipType(ShipType.CRUISER);
-                            getField().get(x + i).set(y, FieldType.SHIP);
-                        }
-                        return true;
-                    }
-                } else if (direction == 4 && y >= 2) {
-                    if (getField().get(x).get(y) == FieldType.EMPTY
-                            && getField().get(x).get(y - 1) == FieldType.EMPTY
-                            && getField().get(x).get(y - 2) == FieldType.EMPTY) {
-                        for (int i = 0; i < 3; i++) {
-                            getField().get(x).get(y - i).setShipType(ShipType.CRUISER);
-                            getField().get(x).set(y - i, FieldType.SHIP);
-                        }
-                        return true;
-                    }
-
-                } else return false; //TODO dodelat chybovou hlasku
+                }else putShipError();
                 break;
             case DESTROYER:
-                if (direction == 1 && x >= 1) {
-                    if (getField().get(x).get(y) == FieldType.EMPTY
-                            && getField().get(x - 1).get(y) == FieldType.EMPTY) {
-                        for (int i = 0; i < 2; i++) {
-                            getField().get(x - i).get(y).setShipType(ShipType.DESTROYER);
-                            getField().get(x - i).set(y, FieldType.SHIP);
+                if (shipCheck(x, y, shipType, direction)) {
+                    if (direction == 1){
+                        int i = 0;
+                        while (shipSizeComparation(shipType, i)){
+                            getField().get(x+i).get(y).setShipType(ShipType.DESTROYER);
+                            getField().get(x+i).set(y, FieldType.SHIP);
+                            i++;
                         }
-                        return true;
                     }
-                } else if (direction == 2 && y < size - 1) {
-                    if (getField().get(x).get(y) == FieldType.EMPTY
-                            && getField().get(x).get(y + 1) == FieldType.EMPTY) {
-                        for (int i = 0; i < 2; i++) {
-                            getField().get(x).get(y + i).setShipType(ShipType.DESTROYER);
-                            getField().get(x).set(y + i, FieldType.SHIP);
+                    if (direction == 2){
+                        int i = 0;
+                        while (shipSizeComparation(shipType, i)){
+                            getField().get(x).get(y+i).setShipType(ShipType.DESTROYER);
+                            getField().get(x).set(y+i, FieldType.SHIP);
+                            i++;
                         }
-                        return true;
-                    }
-
-                } else if (direction == 3 && x < size - 1) {
-                    if (getField().get(x).get(y) == FieldType.EMPTY
-                            && getField().get(x + 1).get(y) == FieldType.EMPTY) {
-                        for (int i = 0; i < 2; i++) {
-                            getField().get(x + i).get(y).setShipType(ShipType.DESTROYER);
-                            getField().get(x + i).set(y, FieldType.SHIP);
-                        }
-                        return true;
-                    }
-                } else if (direction == 4 && y >= 1) {
-                    if (getField().get(x).get(y) == FieldType.EMPTY
-                            && getField().get(x).get(y - 1) == FieldType.EMPTY) {
-                        for (int i = 0; i < 2; i++) {
-                            getField().get(x).get(y - i).setShipType(ShipType.DESTROYER);
-                            getField().get(x).set(y - i, FieldType.SHIP);
-                        }
-                        return true;
                     }
 
-                } else return false; //TODO dodelat chybovou hlasku
+                }else putShipError();
+                break;
+            case CRUISER:
+                if (shipCheck(x, y, shipType, direction)) {
+                    if (direction == 1){
+                        int i = 0;
+                        while (shipSizeComparation(shipType, i)){
+                            getField().get(x+i).get(y).setShipType(ShipType.CRUISER);
+                            getField().get(x+i).set(y, FieldType.SHIP);
+                            i++;
+                        }
+                    }
+                    if (direction == 2){
+                        int i = 0;
+                        while (shipSizeComparation(shipType, i)){
+                            getField().get(x).get(y+i).setShipType(ShipType.CRUISER);
+                            getField().get(x).set(y+i, FieldType.SHIP);
+                            i++;
+                        }
+                    }
+
+                } else{
+                    putShipError();
+                }
                 break;
             default:
                 break;
+
+
+
         }
-    return false;
+        return false;
+    }
+
+    private void putShipError() {
+        System.out.println("Na tuto pozici nelze lod umistit");
     }
 }
