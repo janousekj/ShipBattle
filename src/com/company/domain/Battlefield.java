@@ -85,63 +85,27 @@ public class Battlefield {
 
 
     public boolean putShip(int x, int y, ShipType shipType, int direction) {
-        switch (shipType) {
-            case CARRIER:
+
+        int a = 0;
+        int b = 0;
+        if(direction == 1) a++;
+        else if (direction == 2) b++;
+        else return false;
+        //TODO dodelat chybovou hlasku
+
                 if (shipCheck(x, y, shipType, direction)) {
-                    getField().get(x).get(y).setShipType(ShipType.CARRIER);
-                    getField().get(x).set(y, FieldType.SHIP);
+                    int i = 0;
+                        while (shipSizeComparation(shipType, i)) {
+                            getField().get(x + a).get(y + b).setShipType(shipType);
+                            getField().get(x + a).set(y + b, FieldType.SHIP);
+                            if (a > 0) a++;
+                            else if (b>0) b++;
+                            i++;
+                        }
                 }else putShipError();
-                break;
-            case DESTROYER:
-                if (shipCheck(x, y, shipType, direction)) {
-                    if (direction == 1){
-                        int i = 0;
-                        while (shipSizeComparation(shipType, i)){
-                            getField().get(x+i).get(y).setShipType(ShipType.DESTROYER);
-                            getField().get(x+i).set(y, FieldType.SHIP);
-                            i++;
-                        }
-                    }
-                    if (direction == 2){
-                        int i = 0;
-                        while (shipSizeComparation(shipType, i)){
-                            getField().get(x).get(y+i).setShipType(ShipType.DESTROYER);
-                            getField().get(x).set(y+i, FieldType.SHIP);
-                            i++;
-                        }
-                    }
-
-                }else putShipError();
-                break;
-            case CRUISER:
-                if (shipCheck(x, y, shipType, direction)) {
-                    if (direction == 1){
-                        int i = 0;
-                        while (shipSizeComparation(shipType, i)){
-                            getField().get(x+i).get(y).setShipType(ShipType.CRUISER);
-                            getField().get(x+i).set(y, FieldType.SHIP);
-                            i++;
-                        }
-                    }
-                    if (direction == 2){
-                        int i = 0;
-                        while (shipSizeComparation(shipType, i)){
-                            getField().get(x).get(y+i).setShipType(ShipType.CRUISER);
-                            getField().get(x).set(y+i, FieldType.SHIP);
-                            i++;
-                        }
-                    }
-
-                } else{
-                    putShipError();
-                }
-                break;
-            default:
-                break;
 
 
 
-        }
         return false;
     }
 

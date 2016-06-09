@@ -12,6 +12,7 @@ public class Game {
     public static final int TOTAL_AMOUNT_OF_DESTROYERS = 2;
 
 
+
     public int getTOTAL_AMOUNT_OF_SHIPS() {
 		return TOTAL_AMOUNT_OF_CARRIERS;
 	}
